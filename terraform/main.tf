@@ -12,9 +12,9 @@ resource "aws_vpc" "main" {
 # Public subnet — has a route to the internet
 resource "aws_subnet" "public" {
   vpc_id                  = aws_vpc.main.id
-  cidr_block               = var.public_subnet_cidr
+  cidr_block              = var.public_subnet_cidr
   map_public_ip_on_launch = true
-  availability_zone        = "${var.aws_region}a"
+  availability_zone       = "${var.aws_region}a"
 
   tags = {
     Name = "${var.project_name}-public-subnet"
