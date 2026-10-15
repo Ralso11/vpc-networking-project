@@ -23,16 +23,18 @@ around a cloud environment.**
 
 ## Architecture
 
-```
-Internet
-   |
-Internet Gateway
-   |
-Public Subnet (10.0.1.0/24) — has a route to the internet
-   |
-EC2 instance (t3.micro) — protected by a Security Group
-
-Private Subnet (10.0.2.0/24) — deliberately isolated, no internet route
+```mermaid
+flowchart TB
+    I["Internet"] --> IGW["Internet Gateway"]
+    subgraph VPC["VPC 10.0.0.0/16"]
+        subgraph PUB["Public subnet 10.0.1.0/24 (route to the internet)"]
+            EC2["EC2 t3.micro<br/>Security Group: SSH 22, HTTP 80"]
+        end
+        subgraph PRI["Private subnet 10.0.2.0/24 (no internet route, no NAT)"]
+            X["Isolated segment<br/>(no resources deployed)"]
+        end
+    end
+    IGW --> EC2
 ```
 
 - **VPC** — your own private network space in AWS (`10.0.0.0/16`).
